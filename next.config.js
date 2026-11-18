@@ -1,0 +1,1 @@
+module.exports={typescript:{ignoreBuildErrors:true},eslint:{ignoreDuringBuilds:true},experimental:{instrumentationHook:true,serverComponentsExternalPackages:["pg","exceljs"],serverActions:{bodySizeLimit:"6mb"}}};

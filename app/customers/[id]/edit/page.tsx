@@ -1,0 +1,4 @@
+import Shell from "@/components/Shell"; import CustomerForm from "@/components/CustomerForm"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {updateCustomer} from "../../../actions";
+export const dynamic="force-dynamic";
+export default function P({params,searchParams}:any){need("Secretary","Administrator");const d=load();const c=d.customers.find((x:any)=>x.id===params.id);if(!c)return <Shell>Customer not found</Shell>;
+ return <Shell><h2>Edit customer — {c.name} ({c.code})</h2>{searchParams.e&&<div className="err">{searchParams.e}</div>}<p className="warn">Documents that were already generated keep the old details. After saving, ask the Consultant to regenerate them if the name or address changed.</p><CustomerForm c={c} action={updateCustomer} ownership={d.settings.lists.ownership} submit="Save changes"/></Shell>}

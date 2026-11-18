@@ -1,0 +1,6 @@
+const Rich=({t}:{t:string})=><>{t.split(/(\*\*[^*]+\*\*)/).map((x,i)=>x.startsWith("**")?<b key={i}>{x.slice(2,-2)}</b>:x)}</>;
+const today=()=>new Date().toLocaleDateString("en-US",{month:"long",day:"2-digit",year:"numeric",timeZone:"Africa/Addis_Ababa"});
+const Cover=({c}:{c:any})=><div className="cover"><div className="cv-g"/><div className="cv-m"/><div className="cv-w"><div className="cv-n">{c.name}</div><div className="cv-t">{c.title}</div>{c.to&&<div className="cv-to"><b>To:</b> {c.to}</div>}<div className="cv-d">{today()}</div></div></div>;
+export default function DocView({a,dc,ok}:{a:any,dc:any,ok:boolean}){
+ return <div className="paper"><div className="noprint">{!ok&&<p style={{color:"#c0392b",fontWeight:700}}>DRAFT — NOT APPROVED</p>}<h1>{dc.title}</h1><small>{a.code} · v{dc.version}</small></div>
+ {dc.sections.map((s:any,i:number)=><div key={i}>{s.cover&&<Cover c={s.cover}/>}{s.h&&<h2>{s.h}</h2>}{s.p&&<p><Rich t={s.p}/></p>}{s.rows&&<table><tbody>{s.rows.map((r:string[],j:number)=><tr key={j}>{r.map((x,k)=>{const b=k===0&&x.startsWith("**");const t=b?x.slice(2):x;return j===0?<th key={k}>{t}</th>:<td key={k} style={{fontWeight:r[0].startsWith("**")?700:400,textAlign:k?"right":"left"}}>{t}</td>})}</tr>)}</tbody></table>}</div>)}</div>}

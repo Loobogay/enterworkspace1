@@ -1,0 +1,5 @@
+import Shell from "@/components/Shell"; import {load} from "@/lib/db"; import {fsAdd} from "../../actions"; import {need} from "@/lib/auth";
+export const dynamic="force-dynamic";
+export default function P({searchParams}:any){need("Secretary","Administrator");const d=load();const c=d.customers.find((x:any)=>x.id===searchParams.cid);if(!c)return <Shell>Customer not found</Shell>;
+ return <Shell><h2>New financial statements — {c.name}</h2><form className="card" action={fsAdd}><input type="hidden" name="cid" value={c.id}/><div className="f"><label>Bank shown on the cover (optional)<select name="bank"><option value="">— none —</option>{d.settings.lists.banks.map((b:string)=><option key={b}>{b}</option>)}</select></label><label>Business category<select name="btype">{d.settings.lists.categories.map(x=><option key={x}>{x}</option>)}</select></label></div>
+ <p className="warn">Financial statements are a separate product with their own figures, approval and printing. They are not linked to any financing application. Background and main activities are written automatically from the business category.</p><button>Create draft</button></form></Shell>}

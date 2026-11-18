@@ -1,0 +1,9 @@
+import Shell from "@/components/Shell"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {f} from "@/lib/calc"; import {saveService,deleteService} from "../../actions";
+export const dynamic="force-dynamic";
+export default function P({searchParams}:any){const d=load();const u=me();const A=u.role==="Administrator";const sv:any[]=d.settings.services;
+ return <Shell><h2>Services &amp; Prices</h2>{searchParams.e&&<div className="err">{searchParams.e}</div>}
+ <div className="card"><table><thead><tr><th>Service name</th><th>Description</th><th style={{width:170}}>Price (ETB)</th>{A&&<th style={{width:170}}></th>}</tr></thead><tbody>
+ {sv.map(s=>A?<tr key={s.id}><td><input form={"sv-"+s.id} name="name" defaultValue={s.name} required/></td><td><input form={"sv-"+s.id} name="desc" defaultValue={s.desc}/></td><td><input form={"sv-"+s.id} name="price" type="number" step="0.01" defaultValue={s.price}/></td><td style={{whiteSpace:"nowrap"}}><button form={"sv-"+s.id}>Save</button> <button form={"sv-"+s.id} formAction={deleteService} className="red">Delete</button></td></tr>:<tr key={s.id}><td><b>{s.name}</b></td><td>{s.desc}</td><td>{+s.price>0?f(s.price):"—"}</td></tr>)}</tbody></table>
+ {A&&sv.map(s=><form key={s.id} id={"sv-"+s.id} action={saveService}><input type="hidden" name="id" value={s.id}/></form>)}{!sv.length&&<p style={{color:"var(--mu)"}}>No services yet.</p>}</div>
+ {A&&<form className="card" action={saveService}><h3>Add a service</h3><div className="f"><label>Service name *<input name="name" required/></label><label>Description<input name="desc"/></label><label>Price (ETB)<input name="price" type="number" step="0.01"/></label></div><button>Add service</button></form>}
+ <p style={{color:"var(--mu)"}}>These services and prices appear in the Secretary's Payments form, and picking a service fills in its price.</p></Shell>}

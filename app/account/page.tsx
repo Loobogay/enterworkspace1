@@ -1,0 +1,5 @@
+import Shell from "@/components/Shell"; import {me} from "@/lib/auth"; import {changePassword} from "../actions";
+export const dynamic="force-dynamic";
+export default function P({searchParams}:any){const u=me();
+ return <Shell><h2>My account</h2><div className="card"><p style={{marginTop:0}}><b>{u?.name}</b> · {u?.username} · {u?.role}</p>{searchParams.e&&<div className="err">{searchParams.e}</div>}{searchParams.ok&&<div className="warn" style={{background:"#DDF3E6",borderColor:"#9ED3B2",color:"#15683A"}}>{searchParams.ok}</div>}
+ <form action={changePassword} style={{maxWidth:380}}><h3>Change password</h3><label>Current password<input name="cur" type="password" autoComplete="current-password" required/></label><br/><label>New password (at least 8 characters)<input name="nw" type="password" autoComplete="new-password" minLength={8} required/></label><br/><label>Repeat new password<input name="cf" type="password" autoComplete="new-password" minLength={8} required/></label><br/><button>Change password</button></form></div></Shell>}

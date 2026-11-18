@@ -1,0 +1,7 @@
+export default function CustomerForm({c,action,ownership,submit}:{c?:any;action:any;ownership:string[];submit:string}){
+ const own=[...new Set([...(c?.ownership?[c.ownership]:[]),...ownership])];
+ return <form className="card" action={action}>{c&&<input type="hidden" name="id" value={c.id}/>}
+ <h3>Customer details</h3><div className="f"><label>Full name *<input name="name" defaultValue={c?.name} required/></label><label>Business name<input name="business" defaultValue={c?.business}/></label><label>TIN *<input name="tin" defaultValue={c?.tin} required/></label><label>Mobile *<input name="mobile" defaultValue={c?.mobile} required/></label><label>Email<input name="email" type="email" defaultValue={c?.email}/></label>
+ <label>Ownership<select name="ownership" defaultValue={c?.ownership||own[0]}>{own.map(o=><option key={o}>{o}</option>)}</select></label><label>Business address<input name="address" defaultValue={c?.address}/></label><label>Established<input type="date" name="established" defaultValue={c?.established}/></label></div>
+ <h3>Bank account</h3><div className="f"><label>Account holder *<input name="holder" defaultValue={c?.holder} required/></label><label>{c?"New account number (leave empty to keep "+c.accountMasked+")":"Bank account number *"}<input name="acct" required={!c} autoComplete="off"/></label></div>
+ <button>{submit}</button> <a className="btn ghost" href={c?"/customers/"+c.id:"/customers"}>Cancel</a></form>}

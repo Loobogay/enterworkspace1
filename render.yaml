@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: enter-workspace
+    runtime: docker
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: APP_SECRET
+        generateValue: true
+      - key: SEED_PASSWORD
+        sync: false

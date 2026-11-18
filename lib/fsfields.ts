@@ -1,0 +1,2 @@
+export const INC:[string,string][]=[["rev","Sales revenue"],["cogs","Cost of goods sold"],["sal","Salary and benefit"],["ga","General and admin expense"],["dep","Depreciation expense"]];
+export const BS:[string,string][]=[["cash","Cash and equivalent"],["inv","Inventory"],["rec","Receivables"],["prep","Prepaids"],["equip","Equipment"],["onc","Other non-current asset"],["pay","Account payable"],["capital","Paid up capital"],["ret","Retained earning"]];
