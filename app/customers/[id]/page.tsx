@@ -1,6 +1,6 @@
-import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import ConfirmButton from "@/components/ConfirmButton"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {f} from "@/lib/calc"; import {deleteCustomer} from "../../actions";
+import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import ConfirmButton from "@/components/ConfirmButton"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {f} from "@/lib/calc"; import {deleteCustomer} from "../../actions";
 export const dynamic="force-dynamic";
-export default function P({params,searchParams}:any){const d=load();const u=me();const c=d.customers.find((x:any)=>x.id===params.id);if(!c)return <Shell>Customer not found</Shell>;
+export default function P({params,searchParams}:any){const d=load();const u=need();const c=d.customers.find((x:any)=>x.id===params.id);if(!c)return <Shell>Customer not found</Shell>;
  const can=["Secretary","Administrator"].includes(u.role),see=["Administrator","Audit"].includes(u.role);
  const apps=d.apps.filter((a:any)=>a.cid===c.id),fss=d.fss.filter((a:any)=>a.cid===c.id),pays=d.ftx.filter((x:any)=>x.cid===c.id&&x.type==="income"&&!x.void);
  const R=([k,v]:[string,any])=><tr key={k}><td style={{width:200,color:"var(--mu)"}}>{k}</td><td>{v||"—"}</td></tr>;

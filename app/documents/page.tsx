@@ -1,6 +1,6 @@
-import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {involved} from "@/lib/scope";
+import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {involved} from "@/lib/scope";
 export const dynamic="force-dynamic";
-export default function P({searchParams}:any){const d=load();const u=me();const q=String(searchParams.q||"").toLowerCase();
+export default function P({searchParams}:any){const d=load();const u=need();const q=String(searchParams.q||"").toLowerCase();
  const recs=[...d.apps,...d.fss].filter((a:any)=>involved(a,u));const nm=(a:any)=>d.customers.find((c:any)=>c.id===a.cid)?.name||"";
  const docs:any[]=[];for(const a of recs)for(const [k,dc] of Object.entries(a.docs||{}) as [string,any][])if((a.kind==="fs")===(k==="fin"))docs.push({a,k,dc});
  const files:any[]=[];for(const a of recs)for(const x of a.files||[])files.push({a,x});

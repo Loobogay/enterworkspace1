@@ -1,6 +1,6 @@
-import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {f} from "@/lib/calc"; import {involved} from "@/lib/scope";
+import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {f} from "@/lib/calc"; import {involved} from "@/lib/scope";
 export const dynamic="force-dynamic";
-export default function P({searchParams}:any){const d=load();const u=me();const isA=u.role==="Administrator"||u.role==="Audit";
+export default function P({searchParams}:any){const d=load();const u=need();const isA=u.role==="Administrator"||u.role==="Audit";
  const A=[...d.apps,...d.fss].filter((a:any)=>involved(a,u));const myCust=isA?d.customers:d.customers.filter((c:any)=>c.by===u.name||A.some((a:any)=>a.cid===c.id));
  const c=(...s:string[])=>A.filter((a:any)=>s.includes(a.status)).length;
  const st:[string,number,string][]=[["Customers",myCust.length,"#225DA3"],["Applications / statements",A.length,"#225DA3"],["Pending data approval",c("Pending Consultant Approval"),"#C97A00"],["Documents awaiting review",c("Pending Final Approval","Returned for Document Correction"),"#C97A00"],["Returned",c("Returned for Correction","Customer Revision"),"#E0662B"],["Rejected",c("Rejected"),"#C0392B"],["Ready for printing",c("Ready for Printing"),"#1F8A4C"],["Printed / archived",c("Printed","Archived"),"#6FB1E8"]];

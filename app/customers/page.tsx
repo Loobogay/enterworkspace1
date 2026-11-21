@@ -1,7 +1,7 @@
-import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import ConfirmButton from "@/components/ConfirmButton"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {deleteCustomer} from "../actions";
+import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import ConfirmButton from "@/components/ConfirmButton"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {deleteCustomer} from "../actions";
 export const dynamic="force-dynamic";
 const PER=15;
-export default function P({searchParams}:any){const d=load();const u=me();const can=["Secretary","Administrator"].includes(u.role);const q=String(searchParams.q||"").toLowerCase().trim();
+export default function P({searchParams}:any){const d=load();const u=need();const can=["Secretary","Administrator"].includes(u.role);const q=String(searchParams.q||"").toLowerCase().trim();
  const all=d.customers.filter((c:any)=>!q||[c.name,c.business,c.tin,c.code,c.mobile,c.address].join(" ").toLowerCase().includes(q)).sort((a:any,b:any)=>String(b.code).localeCompare(String(a.code)));
  const pages=Math.max(1,Math.ceil(all.length/PER)),pg=Math.min(pages,Math.max(1,+searchParams.page||1)),L=all.slice((pg-1)*PER,pg*PER);
  const jobs=(c:any)=>d.apps.filter((a:any)=>a.cid===c.id).length+d.fss.filter((a:any)=>a.cid===c.id).length;

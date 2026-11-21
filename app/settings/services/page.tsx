@@ -1,6 +1,6 @@
-import Shell from "@/components/Shell"; import {load} from "@/lib/db"; import {me} from "@/lib/auth"; import {f} from "@/lib/calc"; import {saveService,deleteService} from "../../actions";
+import Shell from "@/components/Shell"; import {load} from "@/lib/db"; import {need} from "@/lib/auth"; import {f} from "@/lib/calc"; import {saveService,deleteService} from "../../actions";
 export const dynamic="force-dynamic";
-export default function P({searchParams}:any){const d=load();const u=me();const A=u.role==="Administrator";const sv:any[]=d.settings.services;
+export default function P({searchParams}:any){const d=load();const u=need();const A=u.role==="Administrator";const sv:any[]=d.settings.services;
  return <Shell><h2>Services &amp; Prices</h2>{searchParams.e&&<div className="err">{searchParams.e}</div>}
  <div className="card"><table><thead><tr><th>Service name</th><th>Description</th><th style={{width:170}}>Price (ETB)</th>{A&&<th style={{width:170}}></th>}</tr></thead><tbody>
  {sv.map(s=>A?<tr key={s.id}><td><input form={"sv-"+s.id} name="name" defaultValue={s.name} required/></td><td><input form={"sv-"+s.id} name="desc" defaultValue={s.desc}/></td><td><input form={"sv-"+s.id} name="price" type="number" step="0.01" defaultValue={s.price}/></td><td style={{whiteSpace:"nowrap"}}><button form={"sv-"+s.id}>Save</button> <button form={"sv-"+s.id} formAction={deleteService} className="red">Delete</button></td></tr>:<tr key={s.id}><td><b>{s.name}</b></td><td>{s.desc}</td><td>{+s.price>0?f(s.price):"—"}</td></tr>)}</tbody></table>

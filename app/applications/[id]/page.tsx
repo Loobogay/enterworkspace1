@@ -1,7 +1,7 @@
-import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load,findRec} from "@/lib/db"; import {me} from "@/lib/auth"; import {terms,fin,f,METHOD} from "@/lib/calc"; import {INC,BS} from "@/lib/fsfields"; import {planChecks,proj} from "@/lib/proj"; import UseOfFunds from "@/components/UseOfFunds";
+import Shell from "@/components/Shell"; import Badge from "@/components/Badge"; import {load,findRec} from "@/lib/db"; import {need} from "@/lib/auth"; import {terms,fin,f,METHOD} from "@/lib/calc"; import {INC,BS} from "@/lib/fsfields"; import {planChecks,proj} from "@/lib/proj"; import UseOfFunds from "@/components/UseOfFunds";
 import {saveFin,submitApp,decide,editDoc,reviewDoc,regen,archive,customerReturn,savePlan,aiImprove,uploadFile,removeFile,importFs} from "../../actions";
 export const dynamic="force-dynamic";
-export default function P({params,searchParams}:any){const d=load();const u=me();const a=findRec(d,params.id);if(!a)return <Shell>Not found</Shell>;
+export default function P({params,searchParams}:any){const d=load();const u=need();const a=findRec(d,params.id);if(!a)return <Shell>Not found</Shell>;
  const fsK=a.kind==="fs";const c=d.customers.find((x:any)=>x.id===a.cid);const t=terms(a);const fi=fsK?fin(a):null;const isC=u.role==="Consultant";
  const editable=["Draft","Returned for Correction"].includes(a.status);const keys=fsK?["fin"]:["letter","plan"];
  const docs=(a.docs?Object.entries(a.docs):[]).filter(([k])=>keys.includes(k)) as [string,any][];
